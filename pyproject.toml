@@ -1,0 +1,19 @@
+[project]
+name = "pcopy"
+version = "0.1.0"
+description = "A parallel file copy utility"
+readme = "README.md"
+authors = [
+    { name = "Lehman Garrison", email = "lgarrison@flatironinstitute.org" }
+]
+requires-python = ">=3.9"
+dependencies = [
+    "typer>=0.15.1",
+]
+
+[project.scripts]
+pcopy = "pcopy:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
