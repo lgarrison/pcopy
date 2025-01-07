@@ -31,6 +31,11 @@ uv tool install git+https://github.com/lgarrison/pcopy
 pcopy src dst
 ```
 
+Select the number of threads with `-w`:
+```bash
+pcopy -w 4 src dst
+```
+
 Some questions to explore in the future:
 - This only parallelizes the file copies (by releasing the GIL), not the directory walk or the directory creation. Can we make a fast Python version that parallelizes those parts?
 - Would nogil Python help with that version? Would nogil Python help with the current version?
