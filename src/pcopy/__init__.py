@@ -7,6 +7,7 @@ from os import PathLike
 import typer
 from typing_extensions import Annotated
 
+# TODO: separate the Typer entry point from the library function so we can use types like this?
 StrPath: TypeAlias = str | PathLike[str]
 
 
@@ -64,19 +65,16 @@ def pcopy(
             # Behave like `cp -r src dest` if dest exists
             dst = dest / src.name if dest_dir_exists else dest
 
-            if src.samefile(dst):
-                raise typer.BadParameter(
-                    'src and dest are the same: '
-                    f'{src} -> {dst}'
-                )
+            # This probably does one more stat than we need
+            if dst.exists() and src.samefile(dst):
+                raise typer.BadParameter(f'src and dest are the same: {src} -> {dst}')
 
             if src.is_file():
                 copier.copy(src, dst)
             else:
                 if src in dst.parents:
                     raise typer.BadParameter(
-                        'Cannot copy a directory into itself: '
-                        f'{src} -> {dst}'
+                        f'Cannot copy a directory into itself: {src} -> {dst}'
                     )
                 shutil.copytree(src, dst, copy_function=copier.copy, dirs_exist_ok=True)
 
