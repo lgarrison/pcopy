@@ -49,10 +49,14 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "typer" },
+    { name = "typing-extensions" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "typer", specifier = ">=0.15.1" }]
+requires-dist = [
+    { name = "typer", specifier = ">=0.15.1" },
+    { name = "typing-extensions", specifier = ">=4.12.2" },
+]
 
 [[package]]
 name = "pygments"
